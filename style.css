@@ -60,4 +60,6 @@ body {
     background-color: #ddd;
     color: black;
 }
-  
+.hidden {
+    display: none;
+}
