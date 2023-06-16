@@ -41,13 +41,16 @@ fetch(`https://api.github.com/repos/${owner}/${repo}/contents?nocache=${new Date
         span.textContent = item.name;
         li.appendChild(span);
 
+        li.addEventListener('click', () => {
+            if (li.classList.contains('hiddenchild')) li.classList.remove('hiddenchild')
+            else li.classList.add('hiddenchild');
+        })
         fetch(item.url)
           .then(response => response.json())
           .then(data => {
             const subUl = document.createElement('ul');
             subUl.type = "none"
             li.appendChild(subUl);
-
             data.forEach(subItem => {
               const subLi = document.createElement('li');
               subUl.appendChild(subLi);

@@ -106,7 +106,7 @@ body {
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
-    padding: 5px 5px 5px 25px;
+    padding: 5px 5px 5px 5px;
   }
   
   li > a {
@@ -143,9 +143,11 @@ body {
     margin-right: 5px;
     color: #ffffff;
   }
-  
-  /* Indentation for nested elements */
-  ul ul {
-    margin-left: 20px;
-  }
-  
+.hiddenchild li {
+    display: none;
+}
+
+li > ul > li {
+    align-self: stretch;
+    margin-top: 10px;
+}
