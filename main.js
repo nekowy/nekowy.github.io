@@ -15,3 +15,51 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     }, 25)
 });
+const owner = 'caffwydev';
+const repo = 'cdn';
+
+fetch(`https://api.github.com/repos/${owner}/${repo}/contents?nocache=${new Date().getTime()}`)
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById('cdn');
+
+    const ul = document.createElement('ul');
+    ul.type = "none"
+    container.appendChild(ul);
+
+    data.forEach(item => {
+      const li = document.createElement('li');
+      ul.appendChild(li);
+
+      if (item.type === 'file') {
+        const a = document.createElement('a');
+        a.href = item.download_url;
+        a.textContent = item.name;
+        li.appendChild(a);
+      } else if (item.type === 'dir') {
+        const span = document.createElement('span');
+        span.textContent = item.name;
+        li.appendChild(span);
+
+        fetch(item.url)
+          .then(response => response.json())
+          .then(data => {
+            const subUl = document.createElement('ul');
+            subUl.type = "none"
+            li.appendChild(subUl);
+
+            data.forEach(subItem => {
+              const subLi = document.createElement('li');
+              subUl.appendChild(subLi);
+
+              if (subItem.type === 'file') {
+                const a = document.createElement('a');
+                a.href = subItem.download_url;
+                a.textContent = subItem.name;
+                subLi.appendChild(a);
+              }
+            });
+          });
+      }
+    });
+  });
