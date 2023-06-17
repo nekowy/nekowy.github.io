@@ -78,76 +78,98 @@ body {
     padding: 20px 20px;
     border-radius: 5px;
     font-family: Verdana, sans-serif;
-    min-height: 40%;
+    height: 325px;
     overflow: auto;
     width: 90%;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  }
+}
   
-  #cdn a {
+#cdn a {
     color: #ffffff;
-  }
+}
   
-  ul {
+ul {
     list-style: none;
-  }
+}
   
-  li {
-    display: flex;
-    align-items: center;
-    margin: 5px 0;
-  }
+li {
+    margin-left: 20px;
+    position: relative;
+    margin-top: 5px;
+}
   
-  li > span {
+li:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -15px;
+    bottom: 0;
+    width: 2px;
+    background-color: #696969;
+}
+  
+li:last-child:before {
+    display: none;
+}
+  
+li > span {
     background-position: left center;
     background-repeat: no-repeat;
     background-size: 16px 16px;
-    color: #007bff;
+    color: #ffffff;
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
-    padding: 5px 5px 5px 5px;
-  }
+    padding: 5px 5px 5px 25px;
+    transition: transform 0.2s ease-in-out;
+}
   
-  li > a {
+li > a {
     color: #ffffff;
     font-size: 14px;
     text-decoration: none;
     padding: 5px;
-  }
+    transition: transform 0.2s ease-in-out;
+}
   
-  li > a:hover {
-    background-color: #f1f1f1;
+li > a:hover {
+    background-color: #5c5c5c;
     color: #007bff !important;
-  }
-  
-  /* Folder Icon */
-  li > span::before {
-    content: "\f07b";
+    transform: translateX(5px);
+}
+
+li > span::before {
+    content: "\f07c";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     margin-right: 5px;
     color: #007bff;
-  }
-  
-  /* Collapsed Folder Icon */
-  li > span.collapsed::before {
-    content: "\f15b";
-  }
+    transition: transform 0.2s ease-in-out;
+}
   
   /* File Icon */
-  li > a::before {
+li > a::before {
     content: "\f15b";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     margin-right: 5px;
     color: #ffffff;
-  }
-.hiddenchild li {
-    display: none;
+    transition: transform 0.2s ease-in-out;
+}
+  
+.rootfolder {
+    position: static !important;
+    list-style: none;
 }
 
-li > ul > li {
-    align-self: stretch;
-    margin-top: 10px;
+.rootfolder span::before {
+    content: "\f233";
+}
+
+.hiddenchild span::before {
+    content: "\f07b";
+}
+  
+.hiddenchild li {
+    display: none;
 }
