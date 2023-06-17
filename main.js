@@ -42,38 +42,49 @@ fetch(`https://api.github.com/repos/${owner}/${repo}/contents?nocache=${new Date
         a.textContent = item.name;
         li.appendChild(a);
       } else if (item.type === 'dir') {
-        console.log('Adding dir ' + item.name)
-        const span = document.createElement('span');
-        span.textContent = item.name;
-        li.appendChild(span);
+        createDir(item, 1)
+        function createDir(item, depth) {
+            console.log('Adding dir ' + item.name)
+            const span = document.createElement('span');
+            span.style.setProperty("--depth", depth);
+            span.textContent = item.name;
+            li.appendChild(span);
 
-        li.addEventListener('click', () => {
-          if (li.classList.contains('hiddenchild')) li.classList.remove('hiddenchild');
-          else li.classList.add('hiddenchild');
-        });
-        fetch(item.url)
-          .then(response => response.json())
-          .then(data => {
-            const subUl = document.createElement('ul');
-            li.appendChild(subUl);
-            data.forEach(subItem => {
-              const subLi = document.createElement('li');
-              subLi.classList.add('forcemark')
-              subUl.appendChild(subLi);
-              if (subItem.type === 'file') {
-                if (!(subItem.name === ".create")) {
-                  const a = document.createElement('a');
-                  a.href = subItem.download_url;
-                  a.textContent = subItem.name;
-                  subLi.appendChild(a);
-                }
-              }
+            li.addEventListener('click', () => {
+            if (li.classList.contains('hiddenchild')) li.classList.remove('hiddenchild');
+            else li.classList.add('hiddenchild');
             });
+            fetch(item.url)
+            .then(response => response.json())
+            .then(data => {
+                const subUl = document.createElement('ul');
+                li.appendChild(subUl);
+                data.forEach(subItem => {
+                const subLi = document.createElement('li');
+                subLi.classList.add('forcemark')
+                subLi.style.setProperty("--depth", depth);
+                subUl.appendChild(subLi);
+                if (subItem.type === 'file') {
+                    if (!(subItem.name === ".create")) {
+                    const a = document.createElement('a');
+                    a.href = subItem.download_url;
+                    a.textContent = subItem.name;
+                    subLi.appendChild(a);
+                    }
+                } else if (subItem.type === "dir") {
+                    createDir(subItem, depth + 1)
+                }
+                });
 
-            const li2 = document.createElement('li');
-            li2.classList.add('hidden')
-            subUl.appendChild(li2)
-          });
+                const li2 = document.createElement('li');
+                li2.classList.add('hidden')
+                subUl.appendChild(li2)
+                const span2 = document.createElement('span');
+                span2.style.setProperty("--depth", depth);
+                span2.classList.add('hidden')
+                li.appendChild(span2);
+            });
+        }
       }
     });
     const li = document.createElement('li');

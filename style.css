@@ -37,7 +37,7 @@ body {
 .header h1, p {
     text-align: center;
     font-family: "DM Sans", sans-serif;
-    font-weight: 400;
+    font-weight: 800;
     line-height: 1.2;
     background-image: linear-gradient(to right, #812CFF, #a061ff);
     -webkit-background-clip: text;
@@ -45,7 +45,7 @@ body {
 }
 
 .header p {
-    font-weight: 200;
+    font-weight: 400;
     background-image: linear-gradient(to right, #ffffff, #a9a6ad);
 }
 h1, p {
@@ -99,27 +99,26 @@ p {
 ul {
     list-style: none;
 }
-  
 li {
-    margin-left: 20px;
+    margin-left: calc((20px + 3px) * var(--depth));
     position: relative;
 }
-  
+
 li:before {
     content: "" !important;
     position: absolute !important;
     top: 0 !important;
     left: -15px !important;
     bottom: 0 !important;
-    width: 2px !important;
-    height: 100% !important; /* Add this line */
+    width: 3px !important;
+    height: 100% !important;
     background-color: #ffffff !important;
 }
-  
+
 li:last-child:before {
     display: none;
 }
-  
+
 li > span {
     background-position: left center;
     background-repeat: no-repeat;
@@ -128,10 +127,10 @@ li > span {
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
-    padding: 5px 5px 5px 25px;
+    padding: 5px 5px 5px calc(25px + 20px * var(--depth)); /* Modified line */
     transition: transform 0.2s ease-in-out;
 }
-  
+
 li > a {
     color: #ffffff;
     font-size: 14px;
@@ -153,8 +152,19 @@ li > span::before {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     margin-right: 5px;
-    color: #007bff;
+    color: #812CFF;
     transition: transform 0.2s ease-in-out;
+}
+
+li::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -15px !important;
+    bottom: 0 !important;
+    width: 2px !important;
+    height: 100% !important;
+    background-color: #ffffff !important;
 }
   
   /* File Icon */
@@ -173,6 +183,7 @@ li > a::before {
 
 .rootfolder {
     list-style: none;
+    margin-left: 20px;
 }
 
 .rootfolder span::before {
@@ -184,5 +195,5 @@ li > a::before {
 }
   
 .hiddenchild li {
-    display: none;
+    display: none !important;
 }
