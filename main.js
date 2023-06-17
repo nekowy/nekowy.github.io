@@ -31,6 +31,7 @@ fetch(`https://api.github.com/repos/${owner}/${repo}/contents?nocache=${new Date
     console.log('Adding data')
     data.forEach(item => {
       const li = document.createElement('li');
+      li.classList.add('forcemark')
       ul.appendChild(li);
 
       if (item.type === 'file') {
@@ -54,10 +55,10 @@ fetch(`https://api.github.com/repos/${owner}/${repo}/contents?nocache=${new Date
           .then(response => response.json())
           .then(data => {
             const subUl = document.createElement('ul');
-            subUl.type = "none";
             li.appendChild(subUl);
             data.forEach(subItem => {
               const subLi = document.createElement('li');
+              subLi.classList.add('forcemark')
               subUl.appendChild(subLi);
               if (subItem.type === 'file') {
                 if (!(subItem.name === ".create")) {
@@ -68,7 +69,14 @@ fetch(`https://api.github.com/repos/${owner}/${repo}/contents?nocache=${new Date
                 }
               }
             });
+
+            const li2 = document.createElement('li');
+            li2.classList.add('hidden')
+            subUl.appendChild(li2)
           });
       }
     });
+    const li = document.createElement('li');
+    li.classList.add('hidden')
+    ul.appendChild(li)
   });

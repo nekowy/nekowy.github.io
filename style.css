@@ -2,7 +2,7 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
 * {
-
+    font-family: "DM Sans", "Ubuntu";
 }
 
 html, body {
@@ -13,7 +13,6 @@ html, body {
 
 body {
     background-color: #212122;
-    font-family: "Ubuntu";
 }
 .body {
     min-height: calc(100vh - 275px); /* Subtracting the header height and margin */
@@ -23,7 +22,6 @@ body {
     margin-top: 10px;
     background-color: #333333;
     padding: 20px 20px;
-    font-family: Verdana, sans-serif;
     overflow: auto;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -36,7 +34,7 @@ body {
 }
 
 
-.header h1 {
+.header h1, p {
     text-align: center;
     font-family: "DM Sans", sans-serif;
     font-weight: 400;
@@ -47,13 +45,22 @@ body {
 }
 
 .header p {
+    font-weight: 200;
+    background-image: linear-gradient(to right, #ffffff, #a9a6ad);
+}
+h1, p {
     text-align: center;
     font-family: "DM Sans", sans-serif;
-    font-weight: 200;
+    font-weight: 400;
     line-height: 1.2;
-    background-image: linear-gradient(to right, #ffffff, #a9a6ad);
+    background-image: linear-gradient(to right, #812CFF, #a061ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+p {
+    font-weight: 200;
+    background-image: linear-gradient(to right, #ffffff, #a9a6ad);
 }
 
 .navbar {
@@ -96,17 +103,17 @@ ul {
 li {
     margin-left: 20px;
     position: relative;
-    margin-top: 5px;
 }
   
 li:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -15px;
-    bottom: 0;
-    width: 2px;
-    background-color: #696969;
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -15px !important;
+    bottom: 0 !important;
+    width: 2px !important;
+    height: 100% !important; /* Add this line */
+    background-color: #ffffff !important;
 }
   
 li:last-child:before {
@@ -129,14 +136,16 @@ li > a {
     color: #ffffff;
     font-size: 14px;
     text-decoration: none;
-    padding: 5px;
+    padding: 1px;
     transition: transform 0.2s ease-in-out;
 }
   
 li > a:hover {
-    background-color: #5c5c5c;
-    color: #007bff !important;
-    transform: translateX(5px);
+    color: #b8b8b8 !important;
+}
+
+li > span:hover {
+    color: #b8b8b8;
 }
 
 li > span::before {
@@ -158,8 +167,11 @@ li > a::before {
     transition: transform 0.2s ease-in-out;
 }
   
+.rootfolder::before {
+    display: none !important;
+}
+
 .rootfolder {
-    position: static !important;
     list-style: none;
 }
 
