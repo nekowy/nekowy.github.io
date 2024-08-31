@@ -12,10 +12,9 @@ html, body {
 }
 
 body {
-    background-color: #212122;
+    background-color: #1a1b1c;
 }
 .body {
-    min-height: calc(100vh - 275px); /* Subtracting the header height and margin */
     margin: 20px;
     background-color: #3a3a40;
     margin: auto;
@@ -24,6 +23,7 @@ body {
     padding: 20px 20px;
     overflow: auto;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    height: 100%;
 }
 .header {
     background-color: #3a3a40;
@@ -46,19 +46,5 @@ body {
 
 .header p {
     font-weight: 400;
-    background-image: linear-gradient(to right, #ffffff, #a9a6ad);
-}
-h1, p {
-    text-align: center;
-    font-family: "DM Sans", sans-serif;
-    font-weight: 400;
-    line-height: 1.2;
-    background-image: linear-gradient(to right, #812CFF, #a061ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-p {
-    font-weight: 200;
     background-image: linear-gradient(to right, #ffffff, #a9a6ad);
 }
