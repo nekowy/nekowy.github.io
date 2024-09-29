@@ -726,9 +726,8 @@
                   );
                   
                   // Check if the node is part of SweetAlert or Notiflix
-                  if (!isIgnoredClass && !isIgnoredId) {
+                  if (!isIgnoredClass && !isIgnoredId && node.tagName.toLowerCase() === ("style")) {
                     block = true;
-                    console.log(node.tagName.toLowerCase());
                     return (IntegrityFail = true);
                   }
                 }
