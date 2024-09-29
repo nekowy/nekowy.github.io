@@ -92,6 +92,7 @@
   <body>
     <div class="c">
       <h1>You must be gay to access this website</h1>
+      <h1>Status: <span id="icheck">Normal</span></h1>
       <div class="captcha-box undone">
         <input
           type="checkbox"
@@ -697,6 +698,7 @@
 
           // Check if the element is not allowed
           if (disallowedTags.includes(tagName)) {
+            document.getElementById("icheck").textContent = '"plasmo-csui" detected';
             IntegrityFail = true;
             return;
           }
@@ -729,6 +731,8 @@
                     block = true;
                     console.log(node.className)
                     console.log(node.id)
+                    
+                    document.getElementById("icheck").textContent = '"' + element.tagName.toLowerCase() + '" detected';
                     return (IntegrityFail = true);
                   }
                 }
