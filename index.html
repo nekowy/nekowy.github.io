@@ -92,7 +92,6 @@
   <body>
     <div class="c">
       <h1>You must be gay to access this website</h1>
-      <h1>Status: <span id="icheck">Normal</span></h1>
       <div class="captcha-box undone">
         <input
           type="checkbox"
@@ -698,7 +697,7 @@
 
           // Check if the element is not allowed
           if (disallowedTags.includes(tagName)) {
-            document.getElementById("icheck").textContent = '"plasmo-csui" detected';
+
             IntegrityFail = true;
             return;
           }
@@ -729,10 +728,7 @@
                   // Check if the node is part of SweetAlert or Notiflix
                   if (!isIgnoredClass && !isIgnoredId) {
                     block = true;
-                    console.log(node.className)
-                    console.log(node.id)
                     
-                    document.getElementById("icheck").textContent = '"' + node.tagName.toLowerCase() + '" detected';
                     return (IntegrityFail = true);
                   }
                 }
@@ -802,7 +798,7 @@
                 if (cheatDetected) {
                   return Failed("Error 7.")
                 }
-                Failed("You got only " + correctAnswers + "/3 right.");
+                Failed("You got only " + correctAnswers + "/5 right.");
               }
             }, 3000);
             return;
