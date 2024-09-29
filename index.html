@@ -770,9 +770,27 @@
         }
         return arr;
       }
-      function getRandomQuestions(questionSet) {
-        return questionSet.sort(() => 0.5 - Math.random()).slice(0, 5);
-      }
+function getRandomQuestions(questionSet) {
+  // Fisher-Yates shuffle to scramble the question set
+  for (let i = questionSet.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [questionSet[i], questionSet[j]] = [questionSet[j], questionSet[i]];
+  }
+  
+  // Select 5 unique random questions from the shuffled array
+  const selectedQuestions = [];
+  while (selectedQuestions.length < 5) {
+    const randomIndex = Math.floor(Math.random() * questionSet.length);
+    const question = questionSet[randomIndex];
+    
+    if (!selectedQuestions.includes(question)) {
+      selectedQuestions.push(question);
+    }
+  }
+
+  return selectedQuestions;
+}
+
 
       // Function to ask random questions using SweetAlert
       function askQuestions(questionSet) {
