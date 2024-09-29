@@ -1,15 +1,782 @@
-<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>retired</title>
-    </head>
-    <body>
-        <div class="header">
-            <h1>Retired Website</h1>
-        </div>  
-    </body>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="main.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DuckduckGo Captcha</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/notiflix/dist/notiflix-3.2.5.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notiflix/dist/notiflix-3.2.5.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        background-color: #f0f0f0;
+      }
+      .captcha-box {
+        width: 500px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        background-color: white;
+        margin: 0 auto;
+      }
+      .captcha-box img {
+        width: 60px;
+        height: 60px;
+        margin-right: 30px;
+        border-radius: 100%;
+        margin-left: 10px;
+      }
+      .captcha-box img.crossors {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        margin-right: 5px !important;
+        margin-left: 22.5px;
+      }
+      .captcha-box p {
+        font-size: 20px;
+        margin-right: auto;
+      }
+      .captcha-box.undone p {
+        margin-left: 10px;
+      }
+      .captcha-box.done p.a {
+        display: none;
+      }
+      .captcha-box.undone p.bfail {
+        display: none;
+      }
+      .captcha-box.undone img.crossors {
+        display: none;
+      }
+      input[type="checkbox"] {
+        display: none;
+      }
+
+      div.captcha-box.undone input[type="checkbox"] + label {
+        background: #eee;
+        border: 1px solid #ddd;
+
+        height: 24px;
+        width: 24px;
+        display: inline-block;
+        padding: 0 0 0 0px;
+        cursor: pointer;
+        margin-left: 30px;
+        border-radius: 2.5px;
+      }
+
+      div.captcha-box.done input[type="checkbox"].checked + label {
+        display: none;
+      }
+      .swal2-modal {
+        width: 850px !important;
+      }
+      .c {
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        display: flex;
+        height: 100vh;
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Gay Captcha -->
+    <div class="c">
+      <h1>You must be gay to access this website</h1>
+      <div class="captcha-box undone">
+        <input
+          type="checkbox"
+          name="gay-captcha"
+          value="valuable"
+          id="gay-captcha"
+          autocomplete="off"
+        /><label for="gay-captcha"></label>
+        <img
+          class="crossors"
+          src="https://static.vecteezy.com/system/resources/previews/017/178/222/original/round-cross-mark-symbol-with-transparent-background-free-png.png"
+        />
+        <p class="bfail">You failed: <span id="fail-message"></span></p>
+        <p class="a">Click to prove you are gay</p>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Gay_Pride_Flag.svg/1024px-Gay_Pride_Flag.svg.png"
+          alt="LGBT logo"
+        />
+      </div>
+    </div>
+    <script>
+      // Questions for "Gay" Captcha
+      let cheatDetected = false;
+      let underCaptcha = false;
+      const gayQuestions = [
+        {
+          question: "Which singer is an LGBTQ+ icon?",
+          options: ["Madonna", "Kanye West", "xxxTentacion", "Ozzy Osbourne"],
+          answer: "Madonna",
+        },
+        {
+          question: "Which show is a cult favorite in the LGBTQ+ community?",
+          options: [
+            "RuPaul's Drag Race",
+            "Breaking Bad",
+            "Game of Thrones",
+            "Friends",
+          ],
+          answer: "RuPaul's Drag Race",
+        },
+        {
+          question: "What does the rainbow flag represent?",
+          options: [
+            "Diversity",
+            "Environmentalism",
+            "Country Pride",
+            "Hip-Hop Culture",
+          ],
+          answer: "Diversity",
+        },
+        {
+          question: "Who is Lady Gaga's fanbase?",
+          options: ["Little Monsters", "Swifties", "Beliebers", "BTS Army"],
+          answer: "Little Monsters",
+        },
+        {
+          question: "Would you rather...",
+          options: [
+            "Get pet all day",
+            "Pet a femboy all day",
+            "Be a femboy",
+            "Get pet all day as a femboy",
+          ],
+          answer: "Get pet all day as a femboy",
+        },
+        {
+          question: "Which movie is a romantic LGBTQ+ favorite?",
+          options: [
+            "Call Me By Your Name",
+            "Die Hard",
+            "Inception",
+            "The Fast and the Furious",
+          ],
+          answer: "Call Me By Your Name",
+        },
+        {
+          question: "Who is the drag queen often called the 'Queen of Drag'?",
+          options: ["RuPaul", "Nicki Minaj", "Cardi B", "Beyoncé"],
+          answer: "RuPaul",
+        },
+        {
+          question: "What is a common term for LGBTQ+ chosen families?",
+          options: ["Houses", "Pods", "Circles", "Tribes"],
+          answer: "Houses",
+        },
+        {
+          question: "Which Pride event is the largest in the world?",
+          options: [
+            "São Paulo Pride",
+            "New York Pride",
+            "London Pride",
+            "Sydney Mardi Gras",
+          ],
+          answer: "São Paulo Pride",
+        },
+        {
+          question: "Which fashion designer is openly gay?",
+          options: [
+            "Tom Ford",
+            "Ralph Lauren",
+            "Karl Lagerfeld",
+            "Giorgio Armani",
+          ],
+          answer: "Tom Ford",
+        },
+        {
+          question:
+            "Which city is often considered the LGBTQ+ capital of the world?",
+          options: ["San Francisco", "Paris", "New York", "Berlin"],
+          answer: "San Francisco",
+        },
+        {
+          question:
+            "Which artist famously performed at the first Stonewall commemoration?",
+          options: [
+            "Bette Midler",
+            "Cher",
+            "Barbra Streisand",
+            "Whitney Houston",
+          ],
+          answer: "Bette Midler",
+        },
+        {
+          question: "Which gender identity means 'neither male nor female'?",
+          options: ["Non-binary", "Cisgender", "Bigender", "Transgender"],
+          answer: "Non-binary",
+        },
+        {
+          question: "Who is considered a bisexual icon?",
+          options: [
+            "David Bowie",
+            "Elton John",
+            "Freddie Mercury",
+            "Sam Smith",
+          ],
+          answer: "David Bowie",
+        },
+        {
+          question: "Which LGBTQ+ dating app is primarily for women?",
+          options: ["Her", "Grindr", "Tinder", "OkCupid"],
+          answer: "Her",
+        },
+        {
+          question: "What does the '+' symbol in LGBTQ+ represent?",
+          options: ["Inclusivity", "Mathematics", "Equality", "Allies"],
+          answer: "Inclusivity",
+        },
+        {
+          question:
+            "Which historic event sparked the modern LGBTQ+ rights movement?",
+          options: [
+            "Stonewall Riots",
+            "Woodstock Festival",
+            "Civil Rights Act",
+            "Harvey Milk's Election",
+          ],
+          answer: "Stonewall Riots",
+        },
+        {
+          question:
+            "Who played the first openly gay superhero in a Marvel movie?",
+          options: [
+            "Brian Tyree Henry",
+            "Chris Evans",
+            "Tom Hiddleston",
+            "Robert Downey Jr.",
+          ],
+          answer: "Brian Tyree Henry",
+        },
+        {
+          question: "What is a popular LGBTQ+ anthem?",
+          options: [
+            "Born This Way",
+            "Smells Like Teen Spirit",
+            "Humble",
+            "Radioactive",
+          ],
+          answer: "Born This Way",
+        },
+        {
+          question: "What color represents life in the LGBTQ+ pride flag?",
+          options: ["Red", "Yellow", "Green", "Blue"],
+          answer: "Red",
+        },
+        {
+          question: "Which LGBTQ+ actor stars in 'Pose'?",
+          options: [
+            "Billy Porter",
+            "Tom Hanks",
+            "Robert Pattinson",
+            "Will Smith",
+          ],
+          answer: "Billy Porter",
+        },
+        {
+          question:
+            "Which term is commonly used to describe fashionable, stylish gay men?",
+          options: ["Fabulous", "Rustic", "Basic", "Flannel"],
+          answer: "Fabulous",
+        },
+        {
+          question:
+            "Which brand collaborated with RuPaul's Drag Race for makeup?",
+          options: [
+            "Anastasia Beverly Hills",
+            "Maybelline",
+            "Clinique",
+            "Fenty Beauty",
+          ],
+          answer: "Anastasia Beverly Hills",
+        },
+        {
+          question: "Who is the singer of the LGBTQ+ anthem 'I Will Survive'?",
+          options: ["Gloria Gaynor", "Celine Dion", "Adele", "Shakira"],
+          answer: "Gloria Gaynor",
+        },
+        {
+          question:
+            "Which TV show prominently features LGBTQ+ characters and representation?",
+          options: [
+            "Schitt's Creek",
+            "Friends",
+            "Breaking Bad",
+            "Stranger Things",
+          ],
+          answer: "Schitt's Creek",
+        },
+        {
+          question: "Which actor came out as gay and starred in 'Ellen'?",
+          options: [
+            "Ellen DeGeneres",
+            "Kristen Stewart",
+            "Miley Cyrus",
+            "Sandra Bullock",
+          ],
+          answer: "Ellen DeGeneres",
+        },
+        {
+          question:
+            "Which country was the first to legalize same-sex marriage?",
+          options: ["Netherlands", "United States", "Brazil", "Germany"],
+          answer: "Netherlands",
+        },
+        {
+          question: "What is a bear in LGBTQ+ slang?",
+          options: [
+            "A large, hairy man",
+            "A woman",
+            "A gym enthusiast",
+            "A pet lover",
+          ],
+          answer: "A large, hairy man",
+        },
+        {
+          question: "Which singer came out as non-binary in 2019?",
+          options: ["Sam Smith", "Bruno Mars", "Katy Perry", "Lana Del Rey"],
+          answer: "Sam Smith",
+        },
+        {
+          question:
+            "Which fashion event is heavily associated with LGBTQ+ culture?",
+          options: [
+            "The Met Gala",
+            "The Oscars",
+            "The Super Bowl",
+            "The Emmys",
+          ],
+          answer: "The Met Gala",
+        },
+        {
+          question: "Which famous artist is known for their androgynous look?",
+          options: [
+            "David Bowie",
+            "Chris Brown",
+            "Justin Timberlake",
+            "Ed Sheeran",
+          ],
+          answer: "David Bowie",
+        },
+        {
+          question:
+            "Which pop singer wrote the song 'You Need to Calm Down' supporting LGBTQ+?",
+          options: [
+            "Taylor Swift",
+            "Ariana Grande",
+            "Britney Spears",
+            "Selena Gomez",
+          ],
+          answer: "Taylor Swift",
+        },
+        {
+          question: "What is the term for identifying with both genders?",
+          options: ["Bigender", "Agender", "Demiboy", "Polygender"],
+          answer: "Bigender",
+        },
+        {
+          question:
+            "Which musical artist came out as gay in 2018 and is famous for 'Old Town Road'?",
+          options: ["Lil Nas X", "Post Malone", "Kendrick Lamar", "Drake"],
+          answer: "Lil Nas X",
+        },
+        {
+          question:
+            "Which queer actor played a role in 'How to Get Away with Murder'?",
+          options: [
+            "Jack Falahee",
+            "Matt Damon",
+            "Ben Affleck",
+            "George Clooney",
+          ],
+          answer: "Jack Falahee",
+        },
+        {
+          question:
+            "Which city is known for its annual LGBTQ+ parade and beach parties?",
+          options: ["Miami", "Detroit", "Cleveland", "Las Vegas"],
+          answer: "Miami",
+        },
+        {
+          question: "What does the term 'Twink' refer to in LGBTQ+ slang?",
+          options: [
+            "A slim, young gay man",
+            "A gym fanatic",
+            "An athlete",
+            "A chef",
+          ],
+          answer: "A slim, young gay man",
+        },
+        {
+          question:
+            "Which singer has been outspoken about LGBTQ+ rights and mental health?",
+          options: ["Demi Lovato", "Lizzo", "Beyoncé", "Cardi B"],
+          answer: "Demi Lovato",
+        },
+        {
+          question: "Which song is often played at LGBTQ+ events?",
+          options: ["Vogue", "Back in Black", "Wonderwall", "Mr. Brightside"],
+          answer: "Vogue",
+        },
+        {
+          question:
+            "Which famous activist fought for LGBTQ+ rights in the '70s?",
+          options: [
+            "Harvey Milk",
+            "Martin Luther King Jr.",
+            "Nelson Mandela",
+            "Malcolm X",
+          ],
+          answer: "Harvey Milk",
+        },
+        {
+          question: "Which artist had the hit song 'Dancing On My Own'?",
+          options: ["Robyn", "Katy Perry", "Lady Gaga", "Taylor Swift"],
+          answer: "Robyn",
+        },
+        {
+          question: "What does 'LGBTQ+' stand for?",
+          options: [
+            "Lesbian, Gay, Bisexual, Transgender, Queer",
+            "Loving, Giving, Beautiful, Tolerant, Quality",
+            "Local, Global, Bright, Trendy, Quick",
+            "Loyal, Gracious, Bold, Thoughtful, Quaint",
+          ],
+          answer: "Lesbian, Gay, Bisexual, Transgender, Queer",
+        },
+        {
+          question: "Which pop icon is known for the phrase 'Born This Way'?",
+          options: ["Lady Gaga", "Madonna", "Beyoncé", "Rihanna"],
+          answer: "Lady Gaga",
+        },
+        {
+          question:
+            "Which character is a popular LGBTQ+ representation in 'Friends'?",
+          options: [
+            "Carol Willick",
+            "Janice Hosenstein",
+            "Phoebe Buffay",
+            "Monica Geller",
+          ],
+          answer: "Carol Willick",
+        },
+        {
+          question:
+            "Which historical figure is known for being one of the first to fight for LGBTQ+ rights?",
+          options: [
+            "Marsha P. Johnson",
+            "Abraham Lincoln",
+            "Thomas Jefferson",
+            "Harriet Tubman",
+          ],
+          answer: "Marsha P. Johnson",
+        },
+        {
+          question:
+            "Who famously said, 'We’re here, we’re queer, get used to it!'?",
+          options: [
+            "Michelangelo Signorile",
+            "RuPaul",
+            "Dan Savage",
+            "Ellen DeGeneres",
+          ],
+          answer: "Michelangelo Signorile",
+        },
+        {
+          question:
+            "Which animated character is openly gay in a popular series?",
+          options: [
+            "Korra",
+            "Homer Simpson",
+            "Stewie Griffin",
+            "SpongeBob SquarePants",
+          ],
+          answer: "Korra",
+        },
+        {
+          question:
+            "Which U.S. state was the first to legalize same-sex marriage?",
+          options: ["Massachusetts", "California", "New York", "Illinois"],
+          answer: "Massachusetts",
+        },
+        {
+          question:
+            "Which event is celebrated as the start of the Pride movement?",
+          options: [
+            "Stonewall Riots",
+            "Pride Month",
+            "Gay Games",
+            "LGBTQ+ History Month",
+          ],
+          answer: "Stonewall Riots",
+        },
+        {
+          question:
+            "Which song features the lyrics 'It's not a crime to be gay'?",
+          options: [
+            "Born This Way",
+            "Girls/Girls/Boys",
+            "I Will Survive",
+            "Dancing Queen",
+          ],
+          answer: "Girls/Girls/Boys",
+        },
+        {
+          question: "Who is a famous openly gay actor in Hollywood?",
+          options: [
+            "Neil Patrick Harris",
+            "Chris Pratt",
+            "Ryan Gosling",
+            "Henry Cavill",
+          ],
+          answer: "Neil Patrick Harris",
+        },
+        {
+          question: "Which festival celebrates LGBTQ+ culture in the summer?",
+          options: [
+            "Pride Festival",
+            "Oktoberfest",
+            "Burning Man",
+            "Coachella",
+          ],
+          answer: "Pride Festival",
+        },
+        {
+          question: "Which singer collaborated with Elton John on a hit song?",
+          options: ["Katy Perry", "Dua Lipa", "Ariana Grande", "Lady Gaga"],
+          answer: "Dua Lipa",
+        },
+        {
+          question: "Which character is a gay superhero in the 'Arrow' series?",
+          options: ["Ollie Queen", "Ray Palmer", "Alex Danvers", "Sara Lance"],
+          answer: "Sara Lance",
+        },
+        {
+          question: "What does the T in LGBTQ+ stand for?",
+          options: ["Transgender", "Traditional", "Trustworthy", "Tolerant"],
+          answer: "Transgender",
+        },
+        {
+          question: "Which singer's album is titled 'Rainbow'?",
+          options: ["Kesha", "Taylor Swift", "Lana Del Rey", "Ariana Grande"],
+          answer: "Kesha",
+        },
+        {
+          question: "What year did the Stonewall Riots occur?",
+          options: ["1969", "1978", "1982", "1990"],
+          answer: "1969",
+        },
+        {
+          question:
+            "Which popular video game features an LGBTQ+ character named Ellie?",
+          options: ["The Last of Us", "Halo", "Call of Duty", "Fortnite"],
+          answer: "The Last of Us",
+        },
+        {
+          question:
+            "Who was the first openly gay person elected to public office in the U.S.?",
+          options: [
+            "Harvey Milk",
+            "Tammy Baldwin",
+            "Pete Buttigieg",
+            "David Cicilline",
+          ],
+          answer: "Harvey Milk",
+        },
+        {
+          question: "What does the term 'Ally' mean in LGBTQ+ context?",
+          options: [
+            "A friend or supporter of the LGBTQ+ community",
+            "A gay person",
+            "A bisexual person",
+            "A transgender person",
+          ],
+          answer: "A friend or supporter of the LGBTQ+ community",
+        },
+        {
+          question:
+            "Which LGBTQ+ figure is known for their contribution to AIDS awareness?",
+          options: [
+            "Elizabeth Taylor",
+            "Angelina Jolie",
+            "Madonna",
+            "Bette Midler",
+          ],
+          answer: "Elizabeth Taylor",
+        },
+        {
+          question:
+            "Which cartoon features a character that comes out as bisexual?",
+          options: [
+            "Steven Universe",
+            "Adventure Time",
+            "Rick and Morty",
+            "The Simpsons",
+          ],
+          answer: "Steven Universe",
+        },
+        {
+          question: "Who wrote the play 'The Boys in the Band'?",
+          options: [
+            "Mart Crowley",
+            "Tennessee Williams",
+            "Harold Pinter",
+            "David Mamet",
+          ],
+          answer: "Mart Crowley",
+        },
+        {
+          question:
+            "Which LGBTQ+ documentary highlights the fight against AIDS?",
+          options: [
+            "How to Survive a Plague",
+            "Paris is Burning",
+            "The Death and Life of Marsha P. Johnson",
+            "Disclosure",
+          ],
+          answer: "How to Survive a Plague",
+        },
+        {
+          question: "Which pop culture event is known for its drag queens?",
+          options: [
+            "RuPaul's Drag Race",
+            "The Voice",
+            "American Idol",
+            "Survivor",
+          ],
+          answer: "RuPaul's Drag Race",
+        },
+        {
+          question: "Which famous painting is associated with LGBTQ+ culture?",
+          options: [
+            "The Two Fridas",
+            "Starry Night",
+            "The Persistence of Memory",
+            "The Last Supper",
+          ],
+          answer: "The Two Fridas",
+        },
+        {
+          question: "What does the color purple represent in the LGBTQ+ flag?",
+          options: ["Spirit", "Harmony", "Courage", "Love"],
+          answer: "Spirit",
+        },
+        {
+          question:
+            "Which comic book series features LGBTQ+ characters prominently?",
+          options: ["Young Avengers", "X-Men", "Batman", "Spider-Man"],
+          answer: "Young Avengers",
+        },
+      ];
+      function Failed(message) {
+        document.querySelector("#fail-message").textContent = message;
+        document.querySelector(".captcha-box").classList.remove("undone");
+        document.querySelector(".captcha-box").classList.add("done");
+
+        console.log("Faul");
+      }
+      function SuccessO(c) {
+        document.querySelector(".bfail").innerHTML = "Success (" + c + "/5)";
+        document.querySelector(".crossors").src = "https://static.vecteezy.com/system/resources/previews/017/350/123/original/green-check-mark-icon-in-round-shape-design-png.png"
+        
+        document.querySelector(".captcha-box").classList.remove("undone");
+        document.querySelector(".captcha-box").classList.add("done");
+      }
+      function scrambleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap elements
+        }
+        return arr;
+      }
+      function getRandomQuestions(questionSet) {
+        return questionSet.sort(() => 0.5 - Math.random()).slice(0, 5);
+      }
+
+      // Function to ask random questions using SweetAlert
+      function askQuestions(questionSet) {
+        const questions = getRandomQuestions(questionSet);
+        console.log(questions);
+        let correctAnswers = 0;
+
+        // Ask questions sequentially
+        const askNextQuestion = (index) => {
+          if (index >= questions.length) {
+            Notiflix.Block.standard("div.captcha-box");
+            setTimeout(() => {
+              underCaptcha = false;
+              Notiflix.Block.remove("div.captcha-box");
+              if (correctAnswers > 3) {
+                // pass
+                SuccessO(correctAnswers);
+              } else {
+                // nope
+                Failed("You got only " + correctAnswers + "/3 right.")
+              }
+            }, 3000);
+            return;
+          }
+
+          Swal.fire({
+            title: questions[index].question,
+            input: "radio",
+            inputOptions: scrambleArray(questions[index].options).reduce(
+              (opts, opt, i) => {
+                opts[opt] = opt;
+                return opts;
+              },
+              {}
+            ),
+            footer: "Please do not unfocus this tab.",
+            inputValidator: (value) => {
+              if (!value && !cheatDetected) {
+                return "You need to choose an answer!";
+              } else if (cheatDetected) {
+                underCaptcha = false;
+                return;
+              } else if (value === questions[index].answer) {
+                correctAnswers++;
+              }
+            },
+          }).then(() => {
+            if (!cheatDetected) askNextQuestion(index + 1);
+            else Failed("Cheating detected.");
+          });
+        };
+        askNextQuestion(0);
+      }
+      document
+        .getElementById("gay-captcha")
+        .addEventListener("click", function () {
+          Notiflix.Loading.circle("Generating questions...");
+          setTimeout(() => {
+            underCaptcha = true;
+            askQuestions(gayQuestions);
+            Notiflix.Loading.remove();
+          }, 300);
+        });
+      window.addEventListener("blur", () => {
+        if (underCaptcha) {
+          cheatDetected = true;
+          if (SweetAlert) {
+            SweetAlert.close();
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
