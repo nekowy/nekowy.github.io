@@ -724,11 +724,11 @@
                   const isIgnoredId = ignoredIds.some((id) =>
                     nodeId.includes(id)
                   );
-
+                  
                   // Check if the node is part of SweetAlert or Notiflix
                   if (!isIgnoredClass && !isIgnoredId) {
                     block = true;
-                    
+                    console.log(node.tagName.toLowerCase());
                     return (IntegrityFail = true);
                   }
                 }
@@ -777,7 +777,6 @@
       // Function to ask random questions using SweetAlert
       function askQuestions(questionSet) {
         const questions = getRandomQuestions(questionSet);
-        console.log(questions);
         let correctAnswers = 0;
 
         // Ask questions sequentially
