@@ -90,7 +90,6 @@
     </style>
   </head>
   <body>
-    <!-- Gay Captcha -->
     <div class="c">
       <h1>You must be gay to access this website</h1>
       <div class="captcha-box undone">
@@ -105,7 +104,7 @@
           class="crossors"
           src="https://static.vecteezy.com/system/resources/previews/017/178/222/original/round-cross-mark-symbol-with-transparent-background-free-png.png"
         />
-        <p class="bfail">You failed: <span id="fail-message"></span></p>
+        <p class="bfail">You've failed: <span id="fail-message"></span></p>
         <p class="a">Click to prove you are gay</p>
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Gay_Pride_Flag.svg/1024px-Gay_Pride_Flag.svg.png"
@@ -113,9 +112,12 @@
         />
       </div>
     </div>
-    <script>
+  </body>
+  <script>
+    (function () {
       // Questions for "Gay" Captcha
       let cheatDetected = false;
+      let IntegrityFail = false;
       let underCaptcha = false;
       const gayQuestions = [
         {
@@ -682,17 +684,82 @@
           answer: "Young Avengers",
         },
       ];
+      let head = document.querySelector("head");
+      function checkIntegrity() {
+        // Define the tags or classes to check
+        const disallowedTags = ["plasmo-csui"]; // SweetAlert and Notiflix elements
+
+        // Get all elements in the document
+        const allElements = document.querySelectorAll("*");
+
+        for (let element of allElements) {
+          const tagName = element.tagName.toLowerCase();
+
+          // Check if the element is not allowed
+          if (disallowedTags.includes(tagName)) {
+            IntegrityFail = true;
+            return;
+          }
+        }
+        if (document.querySelector("head") !== head) IntegrityFail = true;
+      }
+      const ignoredClasses = ["notiflix", "swal", "Style-NotiflixBlockWrap-1"]; // Classes to ignore (SweetAlert, Notiflix)
+      const ignoredIds = ["notiflix", "Style-NotiflixBlockWrap-1", "swal"]; // IDs to ignore (in case SweetAlert/Notiflix use specific IDs)
+      (function () {
+        let block = false;
+
+        const observer = new MutationObserver((mutationsList) => {
+          if (block) return;
+          for (const mutation of mutationsList) {
+            if (mutation.type === "childList") {
+              mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === 1) {
+                  // Only check element nodes
+                  const nodeClass = node.className;
+                  const nodeId = node.id;
+                  const isIgnoredClass = ignoredClasses.some((cls) =>
+                    nodeClass.includes(cls)
+                  );
+                  const isIgnoredId = ignoredIds.some((id) =>
+                    nodeId.includes(id)
+                  );
+
+                  // Check if the node is part of SweetAlert or Notiflix
+                  if (!isIgnoredClass && !isIgnoredId) {
+                    block = true;
+                    console.log(node.className)
+                    console.log(node.id)
+                    return (IntegrityFail = true);
+                  }
+                }
+              });
+            }
+          }
+        });
+        const config = {
+          childList: true, // Observe direct child list changes
+          subtree: false, // Ignore sub-child changes
+        };
+
+        // Start observing `html`, `body`, and `head`
+        observer.observe(document.documentElement, config); // `html`
+        observer.observe(document.body, config); // `body`
+        observer.observe(document.head, config); // `head`
+      })();
+      // Run the integrity check on page load
+      window.onload = checkIntegrity;
+      setInterval(checkIntegrity, 2000);
+
       function Failed(message) {
         document.querySelector("#fail-message").textContent = message;
         document.querySelector(".captcha-box").classList.remove("undone");
         document.querySelector(".captcha-box").classList.add("done");
-
-        console.log("Faul");
       }
       function SuccessO(c) {
         document.querySelector(".bfail").innerHTML = "Success (" + c + "/5)";
-        document.querySelector(".crossors").src = "https://static.vecteezy.com/system/resources/previews/017/350/123/original/green-check-mark-icon-in-round-shape-design-png.png"
-        
+        document.querySelector(".crossors").src =
+          "https://static.vecteezy.com/system/resources/previews/017/350/123/original/green-check-mark-icon-in-round-shape-design-png.png";
+
         document.querySelector(".captcha-box").classList.remove("undone");
         document.querySelector(".captcha-box").classList.add("done");
       }
@@ -720,12 +787,18 @@
             setTimeout(() => {
               underCaptcha = false;
               Notiflix.Block.remove("div.captcha-box");
-              if (correctAnswers > 3) {
+              if (correctAnswers > 3 && !IntegrityFail) {
                 // pass
                 SuccessO(correctAnswers);
               } else {
                 // nope
-                Failed("You got only " + correctAnswers + "/5 right.")
+                if (IntegrityFail) {
+                  return Failed("Error 6.");
+                }
+                if (cheatDetected) {
+                  return Failed("Error 7.")
+                }
+                Failed("You got only " + correctAnswers + "/3 right.");
               }
             }, 3000);
             return;
@@ -743,18 +816,14 @@
             ),
             footer: "Please do not unfocus this tab.",
             inputValidator: (value) => {
-              if (!value && !cheatDetected) {
+              if (!value) {
                 return "You need to choose an answer!";
-              } else if (cheatDetected) {
-                underCaptcha = false;
-                return;
               } else if (value === questions[index].answer) {
                 correctAnswers++;
               }
             },
           }).then(() => {
-            if (!cheatDetected) askNextQuestion(index + 1);
-            else Failed("Cheating detected.");
+            askNextQuestion(index + 1);
           });
         };
         askNextQuestion(0);
@@ -772,11 +841,8 @@
       window.addEventListener("blur", () => {
         if (underCaptcha) {
           cheatDetected = true;
-          if (SweetAlert) {
-            SweetAlert.close();
-          }
         }
       });
-    </script>
-  </body>
+    })();
+  </script>
 </html>
