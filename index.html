@@ -294,12 +294,12 @@
         {
           title: "Do you find members of the same gender attractive?",
           options: ["Very much", "Somewhat", "Not at all"],
-          weights: [40, 20, 0],
+          weights: [40, 20, -40],
         },
         {
           title: "How often do you fantasize about someone of the same gender?",
           options: ["Often", "Sometimes", "Rarely"],
-          weights: [30, 15, 0],
+          weights: [30, 15, -10],
         },
         {
           title: "Have you ever been in a same-gender relationship?",
@@ -328,7 +328,7 @@
         {
           title: "Would you be open to dating someone of the same gender?",
           options: ["Definitely", "Maybe", "No"],
-          weights: [30, 10, 0],
+          weights: [30, 10, -10],
         },
         {
           title: "How important is it for you to be open about your sexuality?",
@@ -337,13 +337,13 @@
         },
         {
           title: "Do you celebrate Pride Month?",
-          options: ["Yes, actively", "Sometimes", "Not at all"],
-          weights: [20, 10, 0],
+          options: ["Yes, actively", "Sometimes", "Not at all", "Against it."],
+          weights: [20, 10, 0, -10],
         },
         {
           title: "Do you feel your identity aligns with LGBTQ+ issues?",
-          options: ["Strongly align", "Somewhat align", "Do not align"],
-          weights: [30, 10, 0],
+          options: ["Strongly align", "Somewhat align", "Do not align", "Not a bit."],
+          weights: [30, 10, 0, -10],
         },
         {
           title: "How often do you think about your sexuality?",
@@ -358,7 +358,7 @@
             "Somewhat comfortable",
             "Not comfortable",
           ],
-          weights: [20, 10, 0],
+          weights: [20, 10, -20],
         },
         {
           title: "Have you ever kissed someone of the same gender?",
@@ -369,17 +369,17 @@
           title:
             "Do you feel more connected to LGBTQ+ culture than straight culture?",
           options: ["Definitely", "Somewhat", "Not at all"],
-          weights: [30, 10, 0],
+          weights: [30, 10, -10],
         },
         {
           title: "How do you feel about LGBTQ+ rights?",
           options: ["Very supportive", "Somewhat supportive", "Not supportive"],
-          weights: [25, 5, 0],
+          weights: [25, 5, -5],
         },
         {
           title: "Would you attend an LGBTQ+ event?",
           options: ["Absolutely", "Maybe", "No"],
-          weights: [25, 10, 0],
+          weights: [25, 10, -10],
         },
         {
           title: "Do you follow LGBTQ+ influencers on social media?",
@@ -439,7 +439,7 @@
         {
           title: "Have you ever experimented with someone of the same gender?",
           options: ["Yes", "No"],
-          weights: [25, 0],
+          weights: [25, -10],
         },
         {
           title: "Do you feel a sense of community within LGBTQ+ groups?",
@@ -481,7 +481,7 @@
           title:
             "Would you describe your attraction as predominantly towards the same gender?",
           options: ["Definitely", "Sometimes", "Not at all"],
-          weights: [40, 20, 0],
+          weights: [40, 20, -10],
         },
         {
           title: "How important is sexual orientation in your self-identity?",
@@ -496,8 +496,8 @@
         {
           title:
             "How would you describe your romantic feelings towards the same gender?",
-          options: ["Very strong", "Somewhat strong", "Weak"],
-          weights: [30, 15, 0],
+          options: ["Very strong", "Somewhat strong", "Weak", "None/Negative"],
+          weights: [30, 15, 0, -10],
         },
         {
           title:
@@ -507,8 +507,9 @@
             "Somewhat comfortable",
             "Not comfortable",
             "I don't know, maybe.",
+            "I'm never gonna do that."
           ],
-          weights: [30, 10, 0, 10],
+          weights: [30, 10, 0, 10, -20],
         },
         {
           title: "How often do you seek out LGBTQ+ friendships?",
@@ -558,8 +559,8 @@
         {
           title:
             "How important is it for you to be in a relationship with someone of the same gender?",
-          options: ["Very important", "Somewhat important", "Not important"],
-          weights: [30, 10, 0],
+          options: ["Very important", "Somewhat important", "Not important", "I'm not comfortable", "I don't like it.", "I'm against it."],
+          weights: [30, 10, 0, -10, -10, -20],
         },
         {
           title:
@@ -589,8 +590,8 @@
         },
         {
           title: "Do you feel proud of your sexuality?",
-          options: ["Very proud", "Somewhat proud", "Not proud"],
-          weights: [25, 10, 0],
+          options: ["Very proud", "Somewhat proud", "Not proud", "Very proud of being straight."],
+          weights: [25, 10, 0, -10],
         },
         {
           title: "How important is community support in your life?",
