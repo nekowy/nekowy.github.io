@@ -680,7 +680,7 @@
           Swal.fire({
             title: question.title,
             input: "radio",
-            inputOptions: question.options.reduce((opts, opt, i) => {
+            inputOptions: scrambleArray(question.options).reduce((opts, opt, i) => {
               opts[opt] = opt;
               return opts;
             }, {}),
