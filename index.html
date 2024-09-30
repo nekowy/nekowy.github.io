@@ -656,16 +656,18 @@
           if (index >= questionSet.length) {
             underCaptcha = false;
             load("Verifying", 250).then(() => {
-              persistence.setCookies(score);
+              if (!cheatDetected && !IntegrityFail) persistence.setCookies(score);
               if (score > 70 && !IntegrityFail) {
                 // pass
                 SuccessO();
               } else {
                 // nope
                 if (cheatDetected) {
+                  setTimeout(() => load("Reloading", 100).then(() => {window.location.reload(); }), 2000)
                   return Failed("Integrity Check Failed");
                 }
                 if (IntegrityFail) {
+                  setTimeout(() => load("Reloading", 100).then(() => {window.location.reload(); }), 2000)
                   return Failed("TabChange Detection");
                 }
                 return Failed(score);
