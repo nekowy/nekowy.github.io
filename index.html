@@ -657,7 +657,7 @@
             underCaptcha = false;
             load("Verifying", 250).then(() => {
               if (!cheatDetected && !IntegrityFail) persistence.setCookies(score);
-              if (score > 70 && !IntegrityFail) {
+              if (score > 90 && !IntegrityFail) {
                 // pass
                 SuccessO();
               } else {
@@ -761,7 +761,7 @@
               });
             } else {
               Notiflix.Loading.remove();
-              if (parseInt(VALIDATOR) > 70) {
+              if (parseInt(VALIDATOR) > 90) {
                 SuccessO();
               } else {
                 Failed();
