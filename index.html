@@ -690,10 +690,8 @@
               if (!value) {
                 return "You need to choose an answer!";
               } else {
-                const weight = question.weights
-                  ? question.weights[question.options.indexOf(value)]
-                  : question.weight;
-
+                const weight = question.weights[question.options.indexOf(value)]
+                console.log(question.options[question.options.indexOf(value)])
                 try {
                   score += parseInt(calculateWeight(startTime, weight));
                 } catch (e) {}
