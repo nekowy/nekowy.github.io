@@ -16,10 +16,12 @@
         font-family: Arial, sans-serif;
         height: 100vh;
         background-color: #222;
-        color: #D9D9D9;
+        color: #d9d9d9;
         overflow: hidden;
       }
-      h1, h2, h3 {
+      h1,
+      h2,
+      h3 {
         margin-right: auto;
       }
       .captcha-box {
@@ -151,8 +153,17 @@
           alt="LGBT logo"
         />
       </div>
-      <h2 style="margin-top: 100px;">caffwydev.github.io needs to review your gay level before proceeding.</h2>
-      <div style="border: 0.5px solid #bbb; width: 99%; overflow: hidden; margin-top: 100px;"></div>
+      <h2 style="margin-top: 100px">
+        caffwydev.github.io needs to review your gay level before proceeding.
+      </h2>
+      <div
+        style="
+          border: 0.5px solid #bbb;
+          width: 99%;
+          overflow: hidden;
+          margin-top: 100px;
+        "
+      ></div>
       <p>Protection by Hiro</p>
     </div>
   </body>
@@ -239,6 +250,10 @@
           }, time);
         });
       }
+
+      load("Loading", 2000).then(() => {
+        document.querySelector(".captcha-box").classList.add("undone");
+      });
       // Run the integrity check on page load
       window.onload = checkIntegrity;
       setInterval(checkIntegrity, 2000);
@@ -259,6 +274,13 @@
 
         load("Verifying", 1000).then(() => {
           document.querySelector(".captcha-box").classList.add("done");
+          setTimeout(() => {
+            load("Redirecting", 500000).then(() => {});
+            setTimeout(() => {
+              window.location.href =
+                "https://www.youtube.com/watch?v=vTy2wtEkj3o";
+            }, 1000);
+          }, 2000);
         });
       }
       function scrambleArray(arr) {
@@ -624,7 +646,7 @@
           const LGTRS = parseInt(atob(cookies["LGTRS"]));
           const LGVLD = parseInt(atob(cookies["LGVLD"]));
           const calculatedScore = LGTRS / LGVLD / this.bit16Number;
-          console.log(calculatedScore, score)
+          console.log(calculatedScore, score);
           return calculatedScore === score && calculatedScore;
         },
       };
@@ -648,7 +670,7 @@
                 }
                 return Failed(score);
               }
-            },);
+            });
             return;
           }
 
