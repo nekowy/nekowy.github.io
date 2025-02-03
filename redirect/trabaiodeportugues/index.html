@@ -4,23 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecionamento Automático</title>
-    <script>
-        // Redireciona após 3 segundos
-        setTimeout(function() {
-            window.location.href = 'https://1drv.ms/w/c/aefc3f41eb964763/EUochO_egP1OtslmMfgPrT8BZqcYMxlvwlPz8XutLQW3kA?e=RjG3Fx';
-        }, 3000);
-    </script>
+    <link rel="icon" href="https://raw.githubusercontent.com/caffwydev/caffwydev.github.io/refs/heads/main/redirect/icon.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-white flex justify-center items-center h-screen">
-
+<body class="bg-neutral-900 text-white flex justify-center items-center h-screen">
     <div class="text-center">
-        <button onclick="window.location.href='https://1drv.ms/w/c/aefc3f41eb964763/EUochO_egP1OtslmMfgPrT8BZqcYMxlvwlPz8XutLQW3kA?e=RjG3Fx'" 
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Acessar
+        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline fixed bottom-2" id="link">
+            Acessar Diretamente
         </button>
-        <p class="mt-4">Redirecionando em 3 segundos...</p>
+        <p class="mt-4" id="status">Redirecionando em <span id="time" class="text-green-500">3</span> segundos...</p>
     </div>
+    <script>
+        let link = "https://1drv.ms/w/c/aefc3f41eb964763/EUochO_egP1OtslmMfgPrT8BZqcYMxlvwlPz8XutLQW3kA?e=RjG3Fx"
+        
+        const time = document.getElementById("time")
+        const status = document.getElementById("status")
+        const link = document.getElementById("link")
+        function setTime(t) {
+            time.innerText = t
+            if (t === 0) status.innerText = "Redirecionando..."
+        }
+        function redirect() {
+            window.location.href = link
+        }
 
+        link.addEventListener("click", () => redirect())
+        
+        setTimeout(function() {
+            setTime(3)
+            setTimeout(function() {
+                setTime(2)
+                setTimeout(function() {
+                    setTime(1)
+                    setTimeout(function() {
+                        setTime(0)
+                        redirect()
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }, 1000);
+    </script>
 </body>
 </html>
