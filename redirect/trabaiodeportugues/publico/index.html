@@ -9,10 +9,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-neutral-900 text-white flex justify-center items-center h-screen">
+    <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline fixed bottom-2" id="link">
+        Acesso Direto
+    </button>
     <div class="text-center">
-        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline fixed bottom-2" id="link">
-            Acessar Diretamente
-        </button>
         <p class="mt-4" id="status">Redirecionando em <span id="time" class="text-green-500">3</span> segundos...</p>
     </div>
     <script>
@@ -20,7 +20,7 @@
         
         const time = document.getElementById("time")
         const status = document.getElementById("status")
-        const link = document.getElementById("link")
+        const linkBtn = document.getElementById("link")
         function setTime(t) {
             time.innerText = t
             if (t === 0) status.innerText = "Redirecionando..."
@@ -29,7 +29,7 @@
             window.location.href = link
         }
 
-        link.addEventListener("click", () => redirect())
+        linkBtn.addEventListener("click", () => redirect())
         
         setTimeout(function() {
             setTime(3)
