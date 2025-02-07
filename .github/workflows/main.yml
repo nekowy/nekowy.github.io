@@ -19,6 +19,7 @@ jobs:
       - name: Apagar a pasta
         run: |
           rm -rf redirect  # Substitua pelo nome da pasta a ser removida
+          rm -rf .github
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add .
