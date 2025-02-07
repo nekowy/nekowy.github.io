@@ -7,10 +7,14 @@ on:
 jobs:
   delete-folder:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Permite que o bot faça push
+
     steps:
       - name: Checkout do repositório
         uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 0
       - name: Apagar a pasta
         run: |
           rm -rf teste  # Substitua pelo nome da pasta a ser removida
@@ -18,4 +22,5 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -m "Removendo a pasta automaticamente em 20/02/2025"
-          git push origin main  # Ajuste o branch se necessário
+          git pull --rebase origin main  # Puxa mudanças antes de enviar
+          git push origin main
