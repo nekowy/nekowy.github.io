@@ -2,7 +2,7 @@ name: Delete Folder on Feb 20, 2025
 
 on:
   schedule:
-    - cron: '42 19 7 2 *'  # Executa em 20 de fevereiro de 2025 às 12:00 UTC
+    - cron: '42-53 19 7 2 *'  # Executa em 20 de fevereiro de 2025 às 12:00 UTC
 
 jobs:
   delete-folder:
