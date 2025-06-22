@@ -1,275 +1,506 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>B4DLUCKY - Regras & Conexão</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1f2937;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #374151;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #4b5563;
-        }
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #1f2937;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #374151;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #4b5563;
+      }
     </style>
-</head>
-<body class="bg-neutral-900 text-neutral-200">
-
-    <div class="min-h-screen flex items-center justify-center p-4 bg-cover bg-center bg-neutral-900">
-        <div id="main-container" class="bg-neutral-800/80 backdrop-blur-sm border border-neutral-700 rounded-2xl shadow-2xl p-6 md:p-8 max-w-3xl w-full transition-all duration-500">
-            <div class="text-center mb-6">
-                <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter">B4DLUCKY</h1>
-                <p class="text-cyan-400 font-medium">Acesso ao servidor</p>
-            </div>
-            <section id="rules-section">
-                <h2 class="text-2xl font-bold text-center text-white mb-6">Regras do Servidor</h2>
-                <div class="space-y-4 max-h-80 overflow-y-auto pr-2">
-                    <div class="p-4 bg-neutral-900 rounded-lg border border-neutral-700">
-                        <h3 class="font-bold text-lg text-cyan-400">1. Proibido Griefing e Trolling</h3>
-                        <p class="text-neutral-300 mt-1">Respeite as construções e projetos de outros jogadores. Qualquer forma de destruição intencional, modificação não autorizada de bases alheias ou trollagens que atrapalhem a experiência de jogo resultarão em punição severa.</p>
-                    </div>
-                    <div class="p-4 bg-neutral-900 rounded-lg border border-neutral-700">
-                        <h3 class="font-bold text-lg text-cyan-400">2. Comunicação Respeitosa</h3>
-                        <p class="text-neutral-300 mt-1">Mantenha um ambiente amigável. Ofensas, xingamentos, bullying, assédio ou qualquer tipo de discurso de ódio não serão tolerados. Trate todos os jogadores com respeito, independentemente de quem sejam.</p>
-                    </div>
-                     <div class="p-4 bg-neutral-900 rounded-lg border border-neutral-700">
-                        <h3 class="font-bold text-lg text-cyan-400">3. Conteúdo Inapropriado (NSFW) e Ilegal</h3>
-                        <p class="text-neutral-300 mt-1">É estritamente proibido compartilhar ou criar qualquer conteúdo de natureza sexual, violenta, ilegal ou que seja considerado inapropriado para um ambiente de jogo público.</p>
-                    </div>
-                    <div class="p-4 bg-neutral-900 rounded-lg border border-neutral-700">
-                        <h3 class="font-bold text-lg text-cyan-400">4. Proibido Cheats e Hacks (X-RAY)</h3>
-                        <p class="text-neutral-300 mt-1">O uso de clientes modificados, hacks, texturas de X-RAY ou qualquer ferramenta que ofereça uma vantagem injusta sobre outros jogadores é terminantemente proibido e resultará em banimento imediato.</p>
-                    </div>
-                    <div class="p-4 bg-neutral-900 rounded-lg border border-neutral-700">
-                        <h3 class="font-bold text-lg text-cyan-400">5. Sem Roubos e Invasões</h3>
-                        <p class="text-neutral-300 mt-1">Não roube itens de baús, fornalhas ou de outros jogadores. Invadir bases alheias sem permissão também é contra as regras.</p>
-                    </div>
-                    <div class="p-4 bg-neutral-900 rounded-lg border border-neutral-700">
-                        <h3 class="font-bold text-lg text-cyan-400">6. Organização do Mapa</h3>
-                        <p class="text-neutral-300 mt-1">Não deixe árvores flutuando, não crie pilares de terra/pedra aleatórios (1x1) e não polua o mapa com construções inúteis. Preserve a beleza natural do mundo para todos.</p>
-                    </div>
-                </div>
-                <div class="mt-8">
-                    <button id="agree-button" class="w-full bg-cyan-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 opacity-50 cursor-not-allowed">
-                        Aguarde <span id="countdown">30</span>s para concordar
-                    </button>
-                </div>
-            </section>
-            <section id="platform-selection-section" class="hidden">
-                <h2 class="text-2xl font-bold text-center text-white mb-6">Qual edição do Minecraft você joga?</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <button onclick="showSection('java-section')" class="bg-green-700 hover:bg-green-600 text-white font-bold py-8 px-4 rounded-lg transition-colors duration-300 flex flex-col items-center justify-center">
-                        <span class="text-2xl">Java Edition</span>
-                        <span class="text-sm opacity-80">(PC/Mac/Linux)</span>
-                    </button>
-                    <button onclick="showSection('bedrock-section')" class="bg-blue-700 hover:bg-blue-600 text-white font-bold py-8 px-4 rounded-lg transition-colors duration-300 flex flex-col items-center justify-center">
-                        <span class="text-2xl">Bedrock Edition</span>
-                        <span class="text-sm opacity-80">(Celular/Console/Win10)</span>
-                    </button>
-                </div>
-            </section>
-            <section id="java-section" class="hidden">
-                <h2 class="text-2xl font-bold text-center text-white mb-2">Whitelist - Java Edition</h2>
-                <p class="text-center text-neutral-400 mb-6">Peça sua whitelist para a staff enviando a mensagem abaixo.</p>
-                <div class="space-y-4">
-                    <div>
-                        <label for="java-nickname" class="block text-sm font-medium text-neutral-300 mb-1">Seu Nickname no Minecraft:</label>
-                        <input type="text" id="java-nickname" class="w-full bg-neutral-700 border border-neutral-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition" placeholder="Ex: Steve">
-                    </div>
-                    <button onclick="copyWhitelistRequest('java')" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">
-                        Copiar Mensagem de Whitelist
-                    </button>
-                    <button onclick="showSection('connection-section-java')" class="w-full bg-neutral-600 hover:bg-neutral-500 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">
-                        Próximo
-                    </button>
-                </div>
-            </section>
-            <section id="bedrock-section" class="hidden">
-                <h2 class="text-2xl font-bold text-center text-white mb-2">Whitelist - Bedrock Edition</h2>
-                <p class="text-center text-neutral-400 mb-6">Insira seu nick e copie a mensagem para pedir whitelist.</p>
-                 <div class="space-y-4">
-                    <div>
-                        <label for="bedrock-nickname" class="block text-sm font-medium text-neutral-300 mb-1">Seu Nickname na Xbox Live:</label>
-                        <input type="text" id="bedrock-nickname" class="w-full bg-neutral-700 border border-neutral-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition" placeholder="Ex: AwesomePlayer123">
-                    </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="copyCorrectBedrockNick()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">Copiar Nick Correto</button>
-                        <button onclick="copyWhitelistRequest('bedrock')" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">Copiar Mensagem</button>
-                    </div>
-                    <button onclick="showSection('connection-section-bedrock')" class="w-full bg-neutral-600 hover:bg-neutral-500 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">
-                        Próximo
-                    </button>
-                </div>
-            </section>
-
-            <section id="connection-section-java" class="hidden text-center">
-                 <h2 class="text-2xl font-bold text-white mb-6">Conectar ao Servidor - Java</h2>
-                 <div class="flex flex-col items-center gap-4">
-                    <button onclick="copyToClipboard(serverIpFull, this)" class="w-full max-w-sm bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">
-                        Copiar Endereço do Servidor
-                    </button>
-                    <p class="text-neutral-400">ou</p>
-                    <div class="bg-neutral-900 p-4 rounded-lg font-mono text-lg text-cyan-300 w-full max-w-sm">
-                        B4DLUCKY.aternos.me:11973
-                    </div>
-                 </div>
-            </section>
-
-            <section id="connection-section-bedrock" class="hidden text-center">
-                 <h2 class="text-2xl font-bold text-white mb-6">Conectar ao Servidor - Bedrock</h2>
-                 <div class="flex flex-col items-center gap-4">
-                    <a href="minecraft://?addExternalServer=B4DLUCKY.aternos.me|B4DLUCKY.aternos.me:11973" class="w-full max-w-sm bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 no-underline">
-                        Adicionar Servidor (Automático)
-                    </a>
-                    
-                    <p class="text-neutral-400">ou (manual)</p>
-
-                    <div class="flex gap-4 w-full max-w-sm">
-                        <button onclick="copyToClipboard(serverIp, this)" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">Copiar IP</button>
-                        <button onclick="copyToClipboard(serverPort, this)" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">Copiar Porta</button>
-                    </div>
-
-                    <p class="text-neutral-400">ou (digitar)</p>
-
-                    <div class="bg-neutral-900 p-4 rounded-lg w-full max-w-sm text-left">
-                        <p><span class="font-bold text-neutral-400">IP/Endereço:</span> <span class="font-mono text-cyan-300">B4DLUCKY.aternos.me</span></p>
-                        <p><span class="font-bold text-neutral-400">Porta:</span> <span class="font-mono text-cyan-300">11973</span></p>
-                    </div>
-                 </div>
-            </section>
+  </head>
+  <body class="bg-neutral-900 text-neutral-200">
+    <div
+      class="min-h-screen flex items-center justify-center p-4 bg-cover bg-center bg-neutral-900"
+    >
+      <div
+        id="main-container"
+        class="bg-neutral-800/80 backdrop-blur-sm border border-neutral-700 rounded-2xl shadow-2xl p-6 md:p-8 max-w-3xl w-full transition-all duration-500"
+      >
+        <div class="text-center mb-6">
+          <h1
+            class="text-4xl md:text-5xl font-black text-white tracking-tighter"
+          >
+            B4DLUCKY
+          </h1>
+          <p class="text-cyan-400 font-medium">Acesso ao servidor</p>
         </div>
+        <section id="rules-section">
+          <h2 class="text-2xl font-bold text-center text-white mb-6">
+            Regras do Servidor
+          </h2>
+          <div class="space-y-4 max-h-80 overflow-y-auto pr-2">
+            <div
+              class="p-4 bg-neutral-900 rounded-lg border border-neutral-700"
+            >
+              <h3 class="font-bold text-lg text-cyan-400">
+                1. Proibido Griefing e Trolling
+              </h3>
+              <p class="text-neutral-300 mt-1">
+                Respeite as construções e projetos de outros jogadores. Qualquer
+                forma de destruição intencional, modificação não autorizada de
+                bases alheias ou trollagens que atrapalhem a experiência de jogo
+                resultarão em punição severa.
+              </p>
+            </div>
+            <div
+              class="p-4 bg-neutral-900 rounded-lg border border-neutral-700"
+            >
+              <h3 class="font-bold text-lg text-cyan-400">
+                2. Comunicação Respeitosa
+              </h3>
+              <p class="text-neutral-300 mt-1">
+                Mantenha um ambiente amigável. Ofensas, xingamentos, bullying,
+                assédio ou qualquer tipo de discurso de ódio não serão
+                tolerados. Trate todos os jogadores com respeito,
+                independentemente de quem sejam.
+              </p>
+            </div>
+            <div
+              class="p-4 bg-neutral-900 rounded-lg border border-neutral-700"
+            >
+              <h3 class="font-bold text-lg text-cyan-400">
+                3. Conteúdo Inapropriado (NSFW) e Ilegal
+              </h3>
+              <p class="text-neutral-300 mt-1">
+                É estritamente proibido compartilhar ou criar qualquer conteúdo
+                de natureza sexual, violenta, ilegal ou que seja considerado
+                inapropriado para um ambiente de jogo público.
+              </p>
+            </div>
+            <div
+              class="p-4 bg-neutral-900 rounded-lg border border-neutral-700"
+            >
+              <h3 class="font-bold text-lg text-cyan-400">
+                4. Proibido Cheats e Hacks (X-RAY)
+              </h3>
+              <p class="text-neutral-300 mt-1">
+                O uso de clientes modificados, hacks, texturas de X-RAY ou
+                qualquer ferramenta que ofereça uma vantagem injusta sobre
+                outros jogadores é terminantemente proibido e resultará em
+                banimento imediato.
+              </p>
+            </div>
+            <div
+              class="p-4 bg-neutral-900 rounded-lg border border-neutral-700"
+            >
+              <h3 class="font-bold text-lg text-cyan-400">
+                5. Sem Roubos e Invasões
+              </h3>
+              <p class="text-neutral-300 mt-1">
+                Não roube itens de baús, fornalhas ou de outros jogadores.
+                Invadir bases alheias sem permissão também é contra as regras.
+              </p>
+            </div>
+            <div
+              class="p-4 bg-neutral-900 rounded-lg border border-neutral-700"
+            >
+              <h3 class="font-bold text-lg text-cyan-400">
+                6. Organização do Mapa
+              </h3>
+              <p class="text-neutral-300 mt-1">
+                Não deixe árvores flutuando, não crie pilares de terra/pedra
+                aleatórios (1x1) e não polua o mapa com construções inúteis.
+                Preserve a beleza natural do mundo para todos.
+              </p>
+            </div>
+          </div>
+          <div class="mt-8">
+            <button
+              id="agree-button"
+              class="w-full bg-cyan-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 opacity-50 cursor-not-allowed"
+            >
+              Aguarde <span id="countdown">30</span>s para concordar
+            </button>
+          </div>
+        </section>
+        <section id="platform-selection-section" class="hidden">
+          <h2 class="text-2xl font-bold text-center text-white mb-6">
+            Qual edição do Minecraft você joga?
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button
+              onclick="showSection('java-section')"
+              class="bg-green-700 hover:bg-green-600 text-white font-bold py-8 px-4 rounded-lg transition-colors duration-300 flex flex-col items-center justify-center"
+            >
+              <span class="text-2xl">Java Edition</span>
+              <span class="text-sm opacity-80">(PC/Mac/Linux)</span>
+            </button>
+            <button
+              onclick="showSection('bedrock-section')"
+              class="bg-blue-700 hover:bg-blue-600 text-white font-bold py-8 px-4 rounded-lg transition-colors duration-300 flex flex-col items-center justify-center"
+            >
+              <span class="text-2xl">Bedrock Edition</span>
+              <span class="text-sm opacity-80">(Celular/Console/Win10)</span>
+            </button>
+          </div>
+        </section>
+        <section id="java-section" class="hidden">
+          <h2 class="text-2xl font-bold text-center text-white mb-2">
+            Whitelist - Java Edition
+          </h2>
+          <p class="text-center text-neutral-400 mb-6">
+            Peça sua whitelist para a staff enviando a mensagem abaixo.
+          </p>
+          <div class="space-y-4">
+            <div>
+              <label
+                for="java-nickname"
+                class="block text-sm font-medium text-neutral-300 mb-1"
+                >Seu Nickname no Minecraft:</label
+              >
+              <input
+                type="text"
+                id="java-nickname"
+                class="w-full bg-neutral-700 border border-neutral-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition"
+                placeholder="Ex: Steve"
+              />
+            </div>
+            <button
+              onclick="copyWhitelistRequest('java')"
+              class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300"
+            >
+              Pedir
+            </button>
+            <button
+              onclick="showSection('connection-section-java')"
+              class="w-full bg-neutral-600 hover:bg-neutral-500 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 disabled nextbtn"
+            >
+              Próximo
+            </button>
+          </div>
+        </section>
+        <section id="bedrock-section" class="hidden">
+          <h2 class="text-2xl font-bold text-center text-white mb-2">
+            Whitelist - Bedrock Edition
+          </h2>
+          <p class="text-center text-neutral-400 mb-6">
+            Insira seu nick e copie a mensagem para pedir whitelist.
+          </p>
+          <div class="space-y-4">
+            <div>
+              <label
+                for="bedrock-nickname"
+                class="block text-sm font-medium text-neutral-300 mb-1"
+                >Seu Nickname na Xbox Live:</label
+              >
+              <input
+                type="text"
+                id="bedrock-nickname"
+                class="w-full bg-neutral-700 border border-neutral-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition"
+                placeholder="Ex: AwesomePlayer123"
+              />
+            </div>
+            <div class="flex">
+              <button
+                onclick="copyWhitelistRequest('bedrock')"
+                class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300"
+              >
+                Pedir
+              </button>
+            </div>
+            <button
+              onclick="showSection('connection-section-bedrock')"
+              class="w-full bg-neutral-600 hover:bg-neutral-500 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 disabled nextbtn"
+            >
+              Próximo
+            </button>
+          </div>
+        </section>
+
+        <section id="connection-section-java" class="hidden text-center">
+          <h2 class="text-2xl font-bold text-white mb-6">
+            Conectar ao Servidor - Java
+          </h2>
+          <div class="flex flex-col items-center gap-4">
+            <button
+              onclick="copyToClipboard(serverIpFull, this)"
+              class="w-full max-w-sm bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300"
+            >
+              Copiar Endereço do Servidor
+            </button>
+            <p class="text-neutral-400">ou</p>
+            <div
+              class="bg-neutral-900 p-4 rounded-lg font-mono text-lg text-cyan-300 w-full max-w-sm"
+            >
+              B4DLUCKY.aternos.me:11973
+            </div>
+          </div>
+        </section>
+
+        <section id="connection-section-bedrock" class="hidden text-center">
+          <h2 class="text-2xl font-bold text-white mb-6">
+            Conectar ao Servidor - Bedrock
+          </h2>
+          <div class="flex flex-col items-center gap-4">
+            <a
+              href="minecraft://?addExternalServer=B4DLUCKY.aternos.me|B4DLUCKY.aternos.me:11973"
+              class="w-full max-w-sm bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 no-underline"
+            >
+              Adicionar Servidor (Automático)
+            </a>
+
+            <p class="text-neutral-400">ou (manual)</p>
+
+            <div class="flex gap-4 w-full max-w-sm">
+              <button
+                onclick="copyToClipboard(serverIp, this)"
+                class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300"
+              >
+                Copiar IP
+              </button>
+              <button
+                onclick="copyToClipboard(serverPort, this)"
+                class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300"
+              >
+                Copiar Porta
+              </button>
+            </div>
+
+            <p class="text-neutral-400">ou (digitar)</p>
+
+            <div
+              class="bg-neutral-900 p-4 rounded-lg w-full max-w-sm text-left"
+            >
+              <p>
+                <span class="font-bold text-neutral-400">IP/Endereço:</span>
+                <span class="font-mono text-cyan-300">B4DLUCKY.aternos.me</span>
+              </p>
+              <p>
+                <span class="font-bold text-neutral-400">Porta:</span>
+                <span class="font-mono text-cyan-300">11973</span>
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
 
     <script>
-        const serverIp = 'B4DLUCKY.aternos.me';
-        const serverPort = '11973';
-        const serverIpFull = `${serverIp}:${serverPort}`;
-        const whitelistRequester = 'BADLUCKY';
+      const serverIp = "B4DLUCKY.aternos.me";
+      const serverPort = "11973";
+      const serverIpFull = `${serverIp}:${serverPort}`;
+      const whitelistRequester = "BADLUCKY";
 
-        const sections = {
-            rules: document.getElementById('rules-section'),
-            platform: document.getElementById('platform-selection-section'),
-            java: document.getElementById('java-section'),
-            bedrock: document.getElementById('bedrock-section'),
-            connJava: document.getElementById('connection-section-java'),
-            connBedrock: document.getElementById('connection-section-bedrock'),
+      const sections = {
+        rules: document.getElementById("rules-section"),
+        platform: document.getElementById("platform-selection-section"),
+        java: document.getElementById("java-section"),
+        bedrock: document.getElementById("bedrock-section"),
+        connJava: document.getElementById("connection-section-java"),
+        connBedrock: document.getElementById("connection-section-bedrock"),
+      };
+
+      const agreeButton = document.getElementById("agree-button");
+      const countdownSpan = document.getElementById("countdown");
+      function showSection(sectionId) {
+        Object.values(sections).forEach((section) =>
+          section.classList.add("hidden")
+        );
+        const sectionToShow = document.getElementById(sectionId);
+        if (sectionToShow) {
+          sectionToShow.classList.remove("hidden");
+        }
+      }
+      async function copyToClipboard(text, button = null) {
+        if (!text) {
+          if (button) {
+            const originalText = button.innerHTML;
+            button.innerHTML = "Preencha o campo!";
+            button.classList.add("bg-red-600", "hover:bg-red-700");
+            setTimeout(() => {
+              button.innerHTML = originalText;
+              button.classList.remove("bg-red-600", "hover:bg-red-700");
+            }, 2000);
+          }
+          return;
+        }
+        try {
+          await navigator.clipboard.writeText(text);
+          if (button) {
+            const originalText = button.innerHTML;
+            button.innerHTML = "Copiado!";
+            setTimeout(() => {
+              button.innerHTML = originalText;
+            }, 2000);
+          }
+        } catch (err) {
+          console.error("Falha ao copiar: ", err);
+          if (button) {
+            const originalText = button.innerHTML;
+            button.innerHTML = "Erro ao copiar";
+            setTimeout(() => {
+              button.innerHTML = originalText;
+            }, 2000);
+          }
+        }
+      }
+      /**
+       * (INSEGURO) Envia a mensagem formatada para o Discord via Webhook.
+       * @param {string} nickname - O nickname do jogador.
+       * @param {string} platform - A plataforma (java ou bedrock).
+       * @param {HTMLElement} button - O botão que foi clicado, para dar feedback visual.
+       */
+      async function sendWhitelistRequestToDiscord(nickname, platform, button) {
+        // !!! NUNCA COLOQUE A URL DO WEBHOOK AQUI EM UM SITE PÚBLICO !!!
+        const webhookURL =
+          "https://ptb.discord.com/api/webhooks/1386477556827426866/Ssd6vwLOGgMQTu5Q4b86LDBF5xKIa-eVN2yXiGg8cHNXbGJJCJRuu1nY6JKzaT1OjmtY"; // <-- COLE SUA URL AQUI
+
+        // Mensagem mais simples
+        // const messageContent = `Nova solicitação de Whitelist:\n**Plataforma:** ${platform.toUpperCase()}\n**Nickname:** \`${nickname}\``;
+
+        // Usando "embeds" para uma aparência melhor no Discord
+        const embedData = {
+          username: "Robô de Whitelist", // Opcional: Nome que aparecerá no Discord
+          avatar_url: "https://i.imgur.com/4M34hi2.png", // Opcional: Imagem de avatar
+          embeds: [
+            {
+              title: "Nova Solicitação de Whitelist",
+              color: 7506394, // Cor hexadecimal em decimal (ex: #7289DA)
+              fields: [
+                {
+                  name: "Plataforma",
+                  value: platform.toUpperCase(),
+                  inline: true,
+                },
+                { name: "Nickname", value: `\`${nickname}\``, inline: true },
+              ],
+              footer: { text: "Solicitado via website" },
+              timestamp: new Date().toISOString(),
+            },
+          ],
         };
 
-        const agreeButton = document.getElementById('agree-button');
-        const countdownSpan = document.getElementById('countdown');
-        function showSection(sectionId) {
-            Object.values(sections).forEach(section => section.classList.add('hidden'));
-            const sectionToShow = document.getElementById(sectionId);
-            if(sectionToShow) {
-                sectionToShow.classList.remove('hidden');
-            }
-        }
-        async function copyToClipboard(text, button = null) {
-            if (!text) {
-                if (button) {
-                    const originalText = button.innerHTML;
-                    button.innerHTML = 'Preencha o campo!';
-                    button.classList.add('bg-red-600', 'hover:bg-red-700');
-                    setTimeout(() => {
-                        button.innerHTML = originalText;
-                         button.classList.remove('bg-red-600', 'hover:bg-red-700');
-                    }, 2000);
-                }
-                return;
-            }
-            try {
-                await navigator.clipboard.writeText(text);
-                if (button) {
-                    const originalText = button.innerHTML;
-                    button.innerHTML = 'Copiado!';
-                    setTimeout(() => {
-                        button.innerHTML = originalText;
-                    }, 2000);
-                }
-            } catch (err) {
-                console.error('Falha ao copiar: ', err);
-                if (button) {
-                    const originalText = button.innerHTML;
-                    button.innerHTML = 'Erro ao copiar';
-                    setTimeout(() => {
-                        button.innerHTML = originalText;
-                    }, 2000);
-                }
-            }
-        }
-        function copyWhitelistRequest(platform) {
-            const nicknameInput = document.getElementById(`${platform}-nickname`);
-            let nickname = nicknameInput.value.trim();
-            if (platform === "bedrock") {
-              nickname = `.${nickname.replaceAll(" ", "_")}`
-            }
+        try {
+          button.textContent = "Enviando...";
+          button.disabled = true;
 
-            if (!nickname) {
-                nicknameInput.focus();
-                nicknameInput.classList.add('ring-2', 'ring-red-500');
-                setTimeout(() => nicknameInput.classList.remove('ring-2', 'ring-red-500'), 2000);
-                const copyButton = (platform === 'java') 
-                    ? document.querySelector('#java-section button')
-                    : document.querySelector('#bedrock-section button:nth-of-type(2)');
-                copyToClipboard(null, copyButton);
-                return;
-            }
-            const message = `${whitelistRequester}: Li e aceitei as regras e desejo entrar na lista branca, nome: ${nickname}`;
-            const button = (platform === 'java') 
-                    ? document.querySelector('#java-section button')
-                    : document.querySelector('#bedrock-section button:nth-of-type(2)');
-            copyToClipboard(message, button);
+          const response = await fetch(webhookURL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(embedData),
+          });
+
+          if (!response.ok) {
+            // Se a resposta do Discord não for 'OK' (ex: erro 4xx, 5xx)
+            throw new Error(`Erro do Discord: ${response.status}`);
+          }
+
+          button.textContent = "Enviado com Sucesso!";
+          button.classList.add("bg-green-500");
+        } catch (error) {
+          console.error("Erro ao enviar para o webhook:", error);
+          button.textContent = "Falha ao Enviar";
+          button.classList.add("bg-red-500");
+        } finally {
+          // Reseta o botão após alguns segundos
+          setTimeout(() => {
+            button.textContent = "Solicitar Whitelist"; // Ou o texto original do seu botão
+            button.disabled = false;
+            button.classList.remove("bg-green-500", "bg-red-500");
+          }, 4000);
         }
-        function copyCorrectBedrockNick() {
-            const nicknameInput = document.getElementById('bedrock-nickname');
-            const nickname = nicknameInput.value.trim();
-             if (!nickname) {
-                nicknameInput.focus();
-                nicknameInput.classList.add('ring-2', 'ring-red-500');
-                setTimeout(() => nicknameInput.classList.remove('ring-2', 'ring-red-500'), 2000);
-                copyToClipboard(null, document.querySelector('#bedrock-section button'));
-                return;
-            }
-            const correctedNick = '.' + nickname.replace(/ /g, '_');
-            copyToClipboard(correctedNick, document.querySelector('#bedrock-section button'));
+      }
+
+      /**
+       * Função principal que valida o input e inicia o processo de envio.
+       */
+      function copyWhitelistRequest(platform) {
+        const nicknameInput = document.getElementById(`${platform}-nickname`);
+        let nickname = nicknameInput.value.trim();
+
+        if (platform === "bedrock" && nickname.length > 0) {
+          // Para Bedrock, o ponto é obrigatório no início. A conversão de espaço é opcional mas comum.
+          nickname = `.${nickname.replaceAll(" ", "_")}`;
         }
-        document.addEventListener('DOMContentLoaded', () => {
-            if (localStorage.getItem('rulesAccepted') === 'true') {
-                showSection('platform-selection-section');
-            } else {
-                let timeLeft = 30;
-                const countdownInterval = setInterval(() => {
-                    timeLeft--;
-                    countdownSpan.textContent = timeLeft;
-                    if (timeLeft <= 0) {
-                        clearInterval(countdownInterval);
-                        agreeButton.disabled = false;
-                        agreeButton.classList.remove('opacity-50', 'cursor-not-allowed');
-                        agreeButton.classList.add('hover:bg-cyan-700');
-                        agreeButton.innerHTML = 'Eu Li e Concordo com as Regras';
-                    }
-                }, 1000);
+
+        if (!nickname || (platform === "bedrock" && nickname.length <= 1)) {
+          nicknameInput.focus();
+          nicknameInput.classList.add("ring-2", "ring-red-500");
+          setTimeout(
+            () => nicknameInput.classList.remove("ring-2", "ring-red-500"),
+            2000
+          );
+          return;
+        }
+
+        // Seleciona o botão correto para dar o feedback
+        const button =
+          platform === "java"
+            ? document.querySelector("#java-section button") // Adapte este seletor se necessário
+            : document.querySelector("#bedrock-section button"); // Adapte este seletor
+
+        // Chama a função que envia para o Discord
+        sendWhitelistRequestToDiscord(nickname, platform, button);
+      }
+      function copyCorrectBedrockNick() {
+        const nicknameInput = document.getElementById("bedrock-nickname");
+        const nickname = nicknameInput.value.trim();
+        if (!nickname) {
+          nicknameInput.focus();
+          nicknameInput.classList.add("ring-2", "ring-red-500");
+          setTimeout(
+            () => nicknameInput.classList.remove("ring-2", "ring-red-500"),
+            2000
+          );
+          copyToClipboard(
+            null,
+            document.querySelector("#bedrock-section button")
+          );
+          return;
+        }
+        const correctedNick = "." + nickname.replace(/ /g, "_");
+        copyToClipboard(
+          correctedNick,
+          document.querySelector("#bedrock-section button")
+        );
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        if (localStorage.getItem("rulesAccepted") === "true") {
+          showSection("platform-selection-section");
+        } else {
+          let timeLeft = 30;
+          const countdownInterval = setInterval(() => {
+            timeLeft--;
+            countdownSpan.textContent = timeLeft;
+            if (timeLeft <= 0) {
+              clearInterval(countdownInterval);
+              agreeButton.disabled = false;
+              agreeButton.classList.remove("opacity-50", "cursor-not-allowed");
+              agreeButton.classList.add("hover:bg-cyan-700");
+              agreeButton.innerHTML = "Eu Li e Concordo com as Regras";
             }
-            agreeButton.addEventListener('click', () => {
-                if (agreeButton.disabled) return;
-                localStorage.setItem('rulesAccepted', 'true');
-                showSection('platform-selection-section');
-            });
+          }, 1000);
+        }
+        agreeButton.addEventListener("click", () => {
+          if (agreeButton.disabled) return;
+          localStorage.setItem("rulesAccepted", "true");
+          showSection("platform-selection-section");
         });
+      });
     </script>
-</body>
+  </body>
 </html>
