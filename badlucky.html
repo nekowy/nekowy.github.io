@@ -183,12 +183,6 @@
             >
               Pedir
             </button>
-            <button
-              onclick="showSection('connection-section-java')"
-              class="w-full bg-neutral-600 hover:bg-neutral-500 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 disabled nextbtn"
-            >
-              Próximo
-            </button>
           </div>
         </section>
         <section id="bedrock-section" class="hidden">
@@ -220,12 +214,6 @@
                 Pedir
               </button>
             </div>
-            <button
-              onclick="showSection('connection-section-bedrock')"
-              class="w-full bg-neutral-600 hover:bg-neutral-500 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 disabled nextbtn"
-            >
-              Próximo
-            </button>
           </div>
         </section>
 
@@ -244,7 +232,7 @@
             <div
               class="bg-neutral-900 p-4 rounded-lg font-mono text-lg text-cyan-300 w-full max-w-sm"
             >
-              B4DLUCKY.aternos.me:11973
+              rated-communities.gl.at.ply.gg:41074
             </div>
           </div>
         </section>
@@ -255,7 +243,7 @@
           </h2>
           <div class="flex flex-col items-center gap-4">
             <a
-              href="minecraft://?addExternalServer=B4DLUCKY.aternos.me|B4DLUCKY.aternos.me:11973"
+              href="minecraft://?addExternalServer=rated-communities.gl.at.ply.gg|rated-communities.gl.at.ply.gg:41074"
               class="w-full max-w-sm bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 no-underline"
             >
               Adicionar Servidor (Automático)
@@ -285,11 +273,11 @@
             >
               <p>
                 <span class="font-bold text-neutral-400">IP/Endereço:</span>
-                <span class="font-mono text-cyan-300">B4DLUCKY.aternos.me</span>
+                <span class="font-mono text-cyan-300">rated-communities.gl.at.ply.gg</span>
               </p>
               <p>
                 <span class="font-bold text-neutral-400">Porta:</span>
-                <span class="font-mono text-cyan-300">11973</span>
+                <span class="font-mono text-cyan-300">41074</span>
               </p>
             </div>
           </div>
@@ -299,7 +287,7 @@
 
     <script>
       const serverIp = "rated-communities.gl.at.ply.gg";
-      const serverPort = "41074";
+      const serverPort = "11973";
       const serverIpFull = `${serverIp}:${serverPort}`;
       const whitelistRequester = "BADLUCKY";
 
@@ -363,52 +351,24 @@
        * @param {HTMLElement} button - O botão que foi clicado, para dar feedback visual.
        */
       async function sendWhitelistRequestToDiscord(nickname, platform, button) {
-        // !!! NUNCA COLOQUE A URL DO WEBHOOK AQUI EM UM SITE PÚBLICO !!!
-        const webhookURL =
-          "https://ptb.discord.com/api/webhooks/1386477556827426866/Ssd6vwLOGgMQTu5Q4b86LDBF5xKIa-eVN2yXiGg8cHNXbGJJCJRuu1nY6JKzaT1OjmtY"; // <-- COLE SUA URL AQUI
-
-        // Mensagem mais simples
-        // const messageContent = `Nova solicitação de Whitelist:\n**Plataforma:** ${platform.toUpperCase()}\n**Nickname:** \`${nickname}\``;
-
-        // Usando "embeds" para uma aparência melhor no Discord
-        const embedData = {
-          username: "Robô de Whitelist", // Opcional: Nome que aparecerá no Discord
-          avatar_url: "https://i.imgur.com/4M34hi2.png", // Opcional: Imagem de avatar
-          embeds: [
-            {
-              title: "Nova Solicitação de Whitelist",
-              color: 7506394, // Cor hexadecimal em decimal (ex: #7289DA)
-              fields: [
-                {
-                  name: "Plataforma",
-                  value: platform.toUpperCase(),
-                  inline: true,
-                },
-                { name: "Nickname", value: `\`${nickname}\``, inline: true },
-              ],
-              footer: { text: "Solicitado via website" },
-              timestamp: new Date().toISOString(),
-            },
-          ],
-        };
-
         try {
           button.textContent = "Enviando...";
           button.disabled = true;
 
-          const response = await fetch(webhookURL, {
+          const response = await fetch("https://badsrv.mochidev.dpdns.org/api/whitelist", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(embedData),
+            body: JSON.stringify({
+              nick: nickname
+            }),
           });
 
           if (!response.ok) {
-            // Se a resposta do Discord não for 'OK' (ex: erro 4xx, 5xx)
-            throw new Error(`Erro do Discord: ${response.status}`);
+            throw new Error(`Erro: ${response.status}`);
           }
-
+          showSection('connection-section-' + platform)
           button.textContent = "Enviado com Sucesso!";
           button.classList.add("bg-green-500");
         } catch (error) {
