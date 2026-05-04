@@ -1,31 +1,202 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Física do Nosso Ritmo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Efeito Estufa</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  scroll-behavior: smooth;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px;
+  text-align: center;
+}
+
+h1, h2 {
+  margin-bottom: 20px;
+}
+
+p {
+  max-width: 600px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.step {
+  scroll-snap-align: start;
+}
+
+.container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+svg {
+  margin-top: 20px;
+  max-width: 300px;
+}
+
+/* Botões */
+.button-group {
+  margin-top: 30px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  background: #38bdf8;
+  color: #0f172a;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #1e293b;
+  min-width: 160px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 10px;
+  display: block;
+  text-decoration: none;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background: #334155;
+}
+</style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-[#FF7E5F] via-[#F3A683] via-[#6C5B7B] to-[#50C9B7] text-white p-6">
-  <header class="text-center mb-10">
-    <h1 class="text-4xl md:text-5xl font-bold mb-2">A FÍSICA DO NOSSO RITMO</h1>
-    <p class="text-lg md:text-xl font-light">Análise da física no dia a dia, análise de carros, trajeto escolar e situações do cotidiano.</p>
-  </header>
 
-  <main class="flex flex-col gap-6 text-center">
-    <a href="https://www.canva.com/design/DAHDyfParu8/MnL5n9osUnBifxTS9Jh_ng/edit?utm_content=DAHDyfParu8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" 
-       class="bg-white text-[#FF7E5F] font-semibold px-6 py-3 rounded-md shadow-lg hover:scale-105 transition transform">
-      Ver no Canva
-    </a>
+<body>
 
-    <a href="https://drive.google.com/drive/folders/1Y9ffnL2OmOS5tJn-M6TTHEFMp-OA0xzX?usp=sharing" 
-       class="bg-white text-[#FF7E5F] font-semibold px-6 py-3 rounded-md shadow-lg hover:scale-105 transition transform">
-      Abrir Google Drive
-    </a>
-  </main>
+<div class="container">
 
-  <footer class="mt-12 text-sm opacity-80">
-    2026 @ Nekowy, miau.
-  </footer>
+<!-- INTRO -->
+<section class="step">
+  <h1>Efeito Estufa</h1>
+  <p>Um fenômeno natural essencial para manter a temperatura da Terra, mas que está sendo intensificado pelas atividades humanas.</p>
+
+  <!-- Sol + Terra -->
+  <svg viewBox="0 0 200 200">
+    <circle cx="50" cy="50" r="20" fill="#facc15"/>
+    <circle cx="120" cy="120" r="30" fill="#22c55e"/>
+  </svg>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="step">
+  <h2>Como funciona?</h2>
+  <p>A luz do Sol entra na atmosfera, aquece a superfície e parte desse calor fica preso por gases, como CO₂.</p>
+
+  <!-- Raios -->
+  <svg viewBox="0 0 200 200">
+    <line x1="20" y1="20" x2="100" y2="100" stroke="#facc15" stroke-width="3"/>
+    <line x1="30" y1="10" x2="110" y2="90" stroke="#facc15" stroke-width="2"/>
+    <circle cx="120" cy="120" r="30" fill="#22c55e"/>
+  </svg>
+</section>
+
+<!-- PROBLEMA -->
+<section class="step">
+  <h2>O problema</h2>
+  <p>O excesso de gases intensifica o efeito estufa, causando aquecimento global.</p>
+
+  <!-- Fumaça -->
+  <svg viewBox="0 0 200 200">
+    <rect x="80" y="100" width="40" height="50" fill="#475569"/>
+    <circle cx="100" cy="80" r="20" fill="#94a3b8"/>
+    <circle cx="120" cy="60" r="15" fill="#94a3b8"/>
+  </svg>
+</section>
+
+<!-- CONSEQUÊNCIAS -->
+<section class="step">
+  <h2>Consequências</h2>
+  <p>Derretimento de geleiras, aumento do nível do mar e mudanças climáticas extremas.</p>
+
+  <!-- Gelo -->
+  <svg viewBox="0 0 200 200">
+    <polygon points="60,140 100,60 140,140" fill="#60a5fa"/>
+  </svg>
+</section>
+
+<!-- SOLUÇÕES -->
+<section class="step">
+  <h2>Soluções</h2>
+  <p>Reduzir emissões, usar energia limpa e preservar florestas.</p>
+
+  <!-- Árvore -->
+  <svg viewBox="0 0 200 200">
+    <rect x="90" y="110" width="20" height="40" fill="#78350f"/>
+    <circle cx="100" cy="90" r="30" fill="#22c55e"/>
+  </svg>
+</section>
+
+<!-- FINAL -->
+<section class="step">
+  <h2>Explore mais</h2>
+
+  <div class="button-group">
+
+    <!-- Vídeo -->
+    <div class="dropdown">
+      <button>Assistir Vídeo</button>
+      <div class="dropdown-content">
+        <a href="https://chocoa.cacao.qzz.io/cdn/raw/46e4f5e0-9bc4-49e0-982c-c7c2c189aa89/0503.mp4" target="_blank">Via CDN</a>
+        <a href="https://drive.google.com/file/d/1qpsn7xLMQGYqdMl-Vpkq7eWiGDcvbTQ8/view?usp=sharing" target="_blank">Via Google Drive</a>
+        <a href="https://cdn.cacao.qzz.io/cdn/raw/5a61bd8f-4fba-4b04-a1a8-3efa03da0f37/vdcmk-2-1-2026.mp4" target="_blank">Filosofia (se for o caso) (CDN)</a>
+        
+        <a href="https://drive.google.com/file/d/1dL6kmIBMLxCTbgYffGoy_RpD0u-Ljevb/view?usp=sharing" target="_blank">Filosofia (se for o caso) (DRIVE)</a>
+      </div>
+    </div>
+
+    <!-- Slides -->
+    <div class="dropdown">
+      <button>Ver Slides</button>
+      <div class="dropdown-content">
+        <a href="https://canva.link/60jmrs0l7vmmgsh" target="_blank">Canva</a>
+        <a href="https://docs.google.com/presentation/d/1onIpjcWhwbtzZ4o0ZAwvs0chqQJMBG09/edit?usp=sharing&ouid=115036837062782298665&rtpof=true&sd=true" target="_blank">PPTX (GDrive)</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</div>
+
 </body>
 </html>
